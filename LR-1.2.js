@@ -1,20 +1,14 @@
 class User {
+    name = "name"
+    password = "password"
+
     constructor(name, password) {
         this.name = name
         this.password = password
     }
-
-    // getName() {
-    //     return this.#username
-    // }
 }
 
 let users = []
-let names =[] 
-// lg
-let passwords = []  
-// pwd
-
 
 btn1.onclick = function() {
     register()  
@@ -24,64 +18,53 @@ btn2.onclick = function() {
 }
 
 function register() {
-    let name = document.getElementById("lg")
-    let password = document.getElementById("pwd")
-
-    const user = new User(name, password)
-    users.push(user)
+    let name = document.getElementById("lg").value
+    let password = document.getElementById("pwd").value
 
     let nametf = 1
     let passtf = 0
     
-    for(let i = 0; i <=names.length; i++) {
-        if(name.value === names[i]) {
+    for(let i = 0; i <=users.length; i++) 
+    {
+        if(name == users[i]?.name) {
             nametf = 0
         }
     }
-
-    for (let i = 0; i < passwords.length; i++){
-        if(password.length>=4 && password.length<=12 )
-            passtf = 1
-            else alert("Error")
-        
-       }
-
+    
+    if(password.length>=4 && password.length<=12 )
+        passtf = 1
+        else alert("Error - пароль должен состоять из 4-12 символов")
+     
     if(nametf == 1 && passtf == 1) {
-        names.push(parseInt(name.value))
-        passwords.push(parseInt(password.value))
+        const user = new User(name, password)
+        users.push(user)
     }
-        else 
-        alert("Ошибка регистрации")
-        
-        console.log(names, passwords)
+        else  alert("Ошибка регистрации")
 
+    if(nametf == 0 && passtf == 1) {
+        alert("Этот пользователь уже зарегестрирован")
+    }
+        console.log(users)
+    }
 
-            console.log(users)
-
-    };
-
-    function login() {
-        let name = document.getElementById("lg")
-        let password = document.getElementById("pwd")
-        let tf = 0
-        for(let i = 0; i <= names.length && i <=passwords.length; i++) {
-            if (name.value === names[i] && password === passwords[i])
-                tf = 1
+function login() {
+    let name = document.getElementById("lg").value
+    let password = document.getElementById("pwd").value
+    let tf = 0 
+      
+    for(let i = 0; i <= users.length; i++)
+    {
+        let userCheck = users[i]
+        if (name == userCheck?.name && password == userCheck?.password)
+            tf = 1      
         }
+
         if(tf === 1)
             alert("Вход выполнен")
-            else
-                alert("Ошибка")
+        else
+            alert("неверный логин или пароль")
     }
     
-
-
-// }
-
-
-
-
-
 
     // name.value = localStorage.getItem('name');
     // name.oninput = () => {
